@@ -44,6 +44,7 @@ build
 *.su
 *.idb
 *.pdb
+*.jlink
 
 # Kernel Module Compile Results
 *.mod*
