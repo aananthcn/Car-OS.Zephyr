@@ -8,20 +8,26 @@
 LOG_MODULE_REGISTER(autosar_os, LOG_LEVEL_DBG);
 
 
-#define DELAY_MS	250
+///////////////////////////////////////////////////////////////////////////////
+// Macros
+#define OS_TICK_MS	(1) /* ms per tick */
+#define LED_ONTIME_MS	(250)
+#define LED_GPIO25	DT_ALIAS(led0)
 
-#define LED		DT_ALIAS(led0)
 
 
-static const struct gpio_dt_spec LedStruct = GPIO_DT_SPEC_GET(LED, gpios);
-
+///////////////////////////////////////////////////////////////////////////////
+// Globals
+static const struct gpio_dt_spec LedStruct = GPIO_DT_SPEC_GET(LED_GPIO25, gpios);
 static struct k_timer OsTickTimer;
 
 
 
+///////////////////////////////////////////////////////////////////////////////
+// Functions
 static void os_ticks(struct k_timer *timer)
 {
-	static int count = 1000;
+	static int count = (LED_ONTIME_MS/OS_TICK_MS);
 
 	if (--count == 0) {
 		gpio_pin_toggle_dt(&LedStruct);
@@ -48,11 +54,11 @@ int main(void)
 	}
 
 	k_timer_init(&OsTickTimer, os_ticks, NULL);
-	k_timer_start(&OsTickTimer, K_MSEC(1), K_MSEC(1));
+	k_timer_start(&OsTickTimer, K_MSEC(OS_TICK_MS), K_MSEC(OS_TICK_MS));
 
 
 	while (1) {
-		k_msleep(DELAY_MS);
+		k_msleep(LED_ONTIME_MS);
 	}
 
 	return 0;
