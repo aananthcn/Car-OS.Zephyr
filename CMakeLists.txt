@@ -7,18 +7,18 @@ project(autosar_os)
 
 # The default app target from Zephyr
 target_sources(app PRIVATE src/main.c)
-add_dependencies(app Lin)
-target_link_libraries(app PRIVATE libLin)
+add_dependencies(app Car_OS)
+target_link_libraries(app PRIVATE libCar_OS)
 
 
 # Custom target -- this is where Car-OS.Zephyr would come in
 add_custom_target(
-	Lin
+	Car_OS
 	COMMAND make 
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/car-os/Lin
-	BYPRODUCTS libLin.la
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/car-os/
+	BYPRODUCTS libCar_OS.la
 )
-add_library(libLin STATIC IMPORTED)
-add_dependencies(libLin Lin)
-target_link_libraries(libLin INTERFACE debug libLin)
-set_target_properties(libLin PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/car-os/Lin/libLin.la)
+add_library(libCar_OS STATIC IMPORTED)
+add_dependencies(libCar_OS Car_OS)
+target_link_libraries(libCar_OS INTERFACE debug libCar_OS)
+set_target_properties(libCar_OS PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/car-os/libCar_OS.la)
