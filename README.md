@@ -1,11 +1,13 @@
 # Car-OS.Zephyr
 The Car here stands for <u>C</u>lassic <u>a</u>utosa<u>r</u>. And the OS.Zephyr means Operating System software on top of Zephyr RTOS. This means Car-OS runs on top of Zephyr, which is akin to Android on top of Linux. 
 
+![Pi Pico Development Setup](docs/Car-OS.Zephyr.jpg?raw=true "Title")
+
 <br>
 
 This project is created this way for 3 reasons:
- * Zephyr OS supports variety of boards and therefore this project can easily support any hardware with little effort.
- * People working on this project can focus on new ideas or on AUTOSAR specs than re-doing what Zephyr OS team had done it.
+ * Zephyr RTOS supports variety of boards and therefore this project can easily support any hardware with little effort.
+ * People working on this project can focus on new ideas or on AUTOSAR specs than re-doing what Zephyr RTOS team had done it.
  * [Linux Foundation is making effort to get Safety (SIL3) certification](https://www.zephyrproject.org/update-safety-standard-compliance/). So this work could/will be used on Cars one day.
 
 
