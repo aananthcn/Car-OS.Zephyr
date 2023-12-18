@@ -27,6 +27,6 @@ static int baba = 0;
 void Lin_Init(void) {
 	// body of the function
 	baba = 100;
-	printf("Hello Lin_Init()");
+	printf("Hello Lin_Init()\n");
 }
 

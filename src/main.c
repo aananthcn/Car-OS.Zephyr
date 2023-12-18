@@ -11,7 +11,7 @@ LOG_MODULE_REGISTER(autosar_os, LOG_LEVEL_DBG);
 ///////////////////////////////////////////////////////////////////////////////
 // Macros
 #define OS_TICK_MS	(1) /* ms per tick */
-#define LED_ONTIME_MS	(150)
+#define LED_ONTIME_MS	(250)
 #define LED_GPIO25	DT_ALIAS(led0)
 
 
