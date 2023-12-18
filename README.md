@@ -1,7 +1,7 @@
 # Car-OS.Zephyr
 The Car here stands for <u>C</u>lassic <u>a</u>utosa<u>r</u>. And the OS.Zephyr means Operating System software on top of Zephyr RTOS. This means Car-OS runs on top of Zephyr, which is akin to Android on top of Linux. 
 
-![Pi Pico Development Setup](docs/Car-OS.Zephyr.jpg?raw=true "Title")
+<img src="docs/Car-OS.Zephyr.jpg"  width=334 height=171>
 
 <br>
 
