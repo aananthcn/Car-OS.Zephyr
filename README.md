@@ -23,7 +23,7 @@ This project is created this way for 3 reasons:
 
 ### Setup and Build
  * `cd <base-path>`
- * `git clone https://github.com/aananthcn/autosar_os-zephyr.git`
+ * `git clone --recurse-submodules -j4 https://github.com/aananthcn/Car-OS.Zephyr`
  * `cd autosar_os-zephyr/`
  * `source ~/zephyrproject/.venv/bin/activate`
  * `source ~/zephyrproject/zephyr/zephyr-env.sh`
@@ -46,7 +46,7 @@ For further reading: https://blog.golioth.io/how-to-build-your-zephyr-app-in-a-s
 
 ### Setup and Build
  * `cd <base-path>`
- * `git clone https://github.com/aananthcn/autosar_os-zephyr.git`
+ * `git clone --recurse-submodules -j4 https://github.com/aananthcn/Car-OS.Zephyr`
  * `cd autosar_os-zephyr/`
  * `bash`
  * `source e:/zephyrproject/zephyr/zephyr-env.sh`
