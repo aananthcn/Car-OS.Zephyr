@@ -11,7 +11,7 @@ LOG_MODULE_REGISTER(autosar_os, LOG_LEVEL_DBG);
 ///////////////////////////////////////////////////////////////////////////////
 // Macros
 #define OS_TICK_MS	(1) /* ms per tick */
-#define LED_ONTIME_MS	(250)
+#define LED_ONTIME_MS	(150)
 #define LED_GPIO25	DT_ALIAS(led0)
 
 
@@ -22,6 +22,7 @@ static const struct gpio_dt_spec LedStruct = GPIO_DT_SPEC_GET(LED_GPIO25, gpios)
 static struct k_timer OsTickTimer;
 
 
+extern void Lin_Init(void);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -31,11 +32,10 @@ static void os_ticks(struct k_timer *timer)
 
 	if (--count == 0) {
 		gpio_pin_toggle_dt(&LedStruct);
-		count = 1000;
-		LOG_DBG("OsTick");
+		count = (LED_ONTIME_MS/OS_TICK_MS);
+		Lin_Init();
 	}
 }
-
 
 
 int main(void)
@@ -56,9 +56,11 @@ int main(void)
 	k_timer_init(&OsTickTimer, os_ticks, NULL);
 	k_timer_start(&OsTickTimer, K_MSEC(OS_TICK_MS), K_MSEC(OS_TICK_MS));
 
+	Lin_Init();
 
 	while (1) {
-		k_msleep(LED_ONTIME_MS);
+		k_msleep(5000);
+		LOG_DBG("Background thread woke-up!");
 	}
 
 	return 0;
