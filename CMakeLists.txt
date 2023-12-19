@@ -9,6 +9,14 @@ project(autosar_os)
 target_sources(app PRIVATE src/main.c)
 add_dependencies(app Car_OS)
 target_link_libraries(app PRIVATE libCar_OS)
+include(${CMAKE_CURRENT_SOURCE_DIR}/car-os/path_defs.cmake)
+target_include_directories(app PUBLIC
+  ${CAR_OS_BOARD_PATH}
+  ${CMAKE_CURRENT_SOURCE_DIR}/car-os/submodules/SL/Os/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/car-os/include/autosar
+  ${CMAKE_CURRENT_SOURCE_DIR}/car-os/include/car_os
+  ${CMAKE_CURRENT_SOURCE_DIR}/car-os/tools/os_builder/src
+)
 
 
 # Custom target -- this is where Car-OS.Zephyr would come in
