@@ -5,9 +5,10 @@ The Car here stands for <u>C</u>lassic <u>a</u>utosa<u>r</u>. And the OS.Zephyr 
 
 <br>
 
-This project is created this way for 3 reasons:
- * Zephyr RTOS supports variety of boards and therefore this project can easily support any hardware with little effort.
- * People working on this project can focus on new ideas or on AUTOSAR specs than re-doing what Zephyr RTOS team had done it.
+This project is created this way for following reasons:
+ * Zephyr OS supports variety of boards and therefore this project can easily support any hardware with little effort.
+ * And MCALs (on AUTOSAR BSW) will use Zephyr RTOS's standard interfaces. So, no business of updating MCALs ($$ savings) across micros, henceforth.
+ * People working on this project can focus on new ideas or on AUTOSAR specs than re-doing what Zephyr OS team had done it.
  * [Linux Foundation is making effort to get Safety (SIL3) certification](https://www.zephyrproject.org/update-safety-standard-compliance/). So this work could/will be used on Cars one day.
 
 
@@ -71,26 +72,52 @@ For further reading: https://blog.golioth.io/how-to-build-your-zephyr-app-in-a-s
 <br><br>
 
 
-## CMake learnings
- * Following cflags are used by rpi_pico in Zephyr
-   * `-mcpu=cortex-m0plus -mthumb -mabi=aapcs -mfp16-format=ieee -mtp=soft`
- * Following CMakeLists.txt additions helped
+# Architecture Decisions
+## The structure of Car-OS.Zephyr
+### The Foundation
+As described in the top of this page, the foundation of Car-OS is Zephyr RTOS. It is (and will be) used as a hardware abstraction layer. And currently following boards are supported
+1. rpi_pico
+
+### The Glue Logic
+The c source files in src folder forms the glue logic. That is, these modules binds the uppper Car-OS (i.e., the modified NammaAUTOSAR) to the bottom layer (i.e., Zephyr RTOS). This layer directly calls the functions, configurations and APIs exported by Car-OS layer.
+
+The Car-OS layer is built separately as a library using the Makefile method, as a library named libCar_OS.la file. And finally linked with Zephyr RTOS by the Zephyr build system using west commands (see Getting Started section of this page for details)
+
+##### The glue stuff in cMake code to do the same
+Refer: https://github.com/zephyrproject-rtos/zephyr/blob/main/samples/application_development/external_lib/CMakeLists.txt
+ * CMakeLists.txt additions 
     ```
-    # The default app target from Zephyr
-    target_sources(app PRIVATE src/main.c)
-    add_dependencies(app Lin)
-    target_link_libraries(app PRIVATE libLin)
-
-
-    # Custom target -- this is where Car-OS.Zephyr would come in
+    # Custom target for Car-OS.Zephyr
     add_custom_target(
-      Lin
-      COMMAND make
-      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/car-os/Lin
-	    BYPRODUCTS libLin.la
+      Car_OS
+      COMMAND make 
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/car-os/
+      BYPRODUCTS libCar_OS.la
     )
-    add_library(libLin STATIC IMPORTED)
-    add_dependencies(libLin Lin)
-    target_link_libraries(libLin INTERFACE debug libLin)
-    set_target_properties(libLin PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/car-os/Lin/libLin.la)
+    add_library(libCar_OS STATIC IMPORTED)
+    add_dependencies(libCar_OS Car_OS)
+    target_link_libraries(libCar_OS INTERFACE debug libCar_OS)
+    set_target_properties(libCar_OS PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/car-os/libCar_OS.la)
     ```
+
+## Won't compilation of two objects cause run-time issues?
+Basically yes, this project had already seen it during the testing because the architecture options were different and Zephyr traps such code execution. But when we use the same compiler and keep the compiler options same and then integration of two differnetly built objects can work without issues. It is tested too.
+
+ * Following cflags are used by rpi_pico to build zephyr.elf
+   * `-mcpu=cortex-m0plus -mthumb -mabi=aapcs -mfp16-format=ieee -mtp=soft`
+   * And the same is also used for building libCar_OS.la
+
+## AUTOSAR Tasks on Car-OS.Zehyr
+To schedule AUTOSAR tasks I have 2 options in hand:
+ 1. **OPTION-1**: To use the NammaAUTOSAR's way of calling functions, i.e., get a timer ISR and then control the scheduling tasks by inspecting the OS_Config structure and the TaskControlBlock structure.
+ 2. **OPTION-2**: By using the kernel thread APIs of Zephyr RTOS (samples listed below):
+    * k_thread_create()
+    * k_thread_suspend()
+    * k_thread_resume()
+    * ...
+
+The decision is to go with OPTION-2 because of following reasons:
+1. The scheduling is more complex and if I use the Zephyr's implementations, then I get
+   * Better performance (includes lesser Flash space)
+   * Lesser development efforts (including defect fixes)
+2. Using the native APIs will set a path way to integrate both AUTOSAR and non-AUTOSAR applications together and their behaviors will be same.

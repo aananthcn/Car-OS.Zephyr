@@ -8,6 +8,7 @@
 #include <sg_appmodes.h> /* os_builder generated code */
 
 
+
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(autosar_os, LOG_LEVEL_DBG);
 
