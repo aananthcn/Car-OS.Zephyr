@@ -1,5 +1,6 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
+#include <zephyr/logging/log.h>
 
 #include <stdio.h>
 
@@ -9,7 +10,6 @@
 
 
 
-#include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(autosar_os, LOG_LEVEL_DBG);
 
 
