@@ -1,6 +1,10 @@
 
 // Use USB CDC as console output.
 // Check out the docs: https://docs.zephyrproject.org/latest/services/usb/uds_cdc_acm.html#console-over-cdc-acm-uart
+
+
+#include "../car-os/submodules/MCAL/Port/cfg/Port.dtsi"
+
 / {
 	chosen {
 		zephyr,console = &usb_cdc;

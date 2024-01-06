@@ -17,15 +17,15 @@ LOG_MODULE_REGISTER(autosar_os, LOG_LEVEL_DBG);
 // Macros
 #define OS_TICK_MS	(1) /* ms per tick */
 #define LED_ONTIME_MS	(250)
-#define LED_GPIO25	DT_ALIAS(led0)
 
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // Globals
-static const struct gpio_dt_spec LedStruct = GPIO_DT_SPEC_GET(LED_GPIO25, gpios);
+// static const struct gpio_dt_spec LedStruct = GPIO_DT_SPEC_GET(LED_GPIO25, gpios);
 static struct k_timer OsTickTimer;
 
+const struct gpio_dt_spec pin25 = GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), pin25_gpios);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ static void os_ticks(struct k_timer *timer)
 	_OsHandleTicks();
 
 	if (--count == 0) {
-		gpio_pin_toggle_dt(&LedStruct);
+		gpio_pin_toggle_dt(&pin25);
 		count = (LED_ONTIME_MS/OS_TICK_MS);
 	}
 }
@@ -49,11 +49,11 @@ int main(void)
 	LOG_DBG("Welcome to CAR-OS (Zephyr)!");
 
 
-	if (!gpio_is_ready_dt(&LedStruct)) {
+	if (!gpio_is_ready_dt(&pin25)) {
 		return 0;
 	}
 
-	ret = gpio_pin_configure_dt(&LedStruct, GPIO_OUTPUT_ACTIVE);
+	ret = gpio_pin_configure_dt(&pin25, GPIO_OUTPUT_ACTIVE);
 	if (ret < 0) {
 		return 0;
 	}
