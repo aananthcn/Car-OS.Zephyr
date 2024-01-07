@@ -1,5 +1,4 @@
 #include <zephyr/kernel.h>
-#include <zephyr/drivers/gpio.h>
 #include <zephyr/logging/log.h>
 
 #include <stdio.h>
@@ -8,9 +7,10 @@
 #include <os_api.h>
 #include <sg_appmodes.h> /* os_builder generated code */
 
+#include <EcuM.h>
+#include <Dio.h>
 
 
-LOG_MODULE_REGISTER(autosar_os, LOG_LEVEL_DBG);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -22,10 +22,10 @@ LOG_MODULE_REGISTER(autosar_os, LOG_LEVEL_DBG);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Globals
-// static const struct gpio_dt_spec LedStruct = GPIO_DT_SPEC_GET(LED_GPIO25, gpios);
 static struct k_timer OsTickTimer;
 
-const struct gpio_dt_spec pin25 = GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), pin25_gpios);
+LOG_MODULE_REGISTER(autosar_os, LOG_LEVEL_DBG);
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ static void os_ticks(struct k_timer *timer)
 	_OsHandleTicks();
 
 	if (--count == 0) {
-		gpio_pin_toggle_dt(&pin25);
+		Dio_FlipChannel(25); // Main LED is at GPIO25
 		count = (LED_ONTIME_MS/OS_TICK_MS);
 	}
 }
@@ -45,18 +45,8 @@ static void os_ticks(struct k_timer *timer)
 
 int main(void)
 {
-	int ret;
+	EcuM_Init(); // TODO: Try to call Call EcuM_Init() much earlier from assembly code.
 	LOG_DBG("Welcome to CAR-OS (Zephyr)!");
-
-
-	if (!gpio_is_ready_dt(&pin25)) {
-		return 0;
-	}
-
-	ret = gpio_pin_configure_dt(&pin25, GPIO_OUTPUT_ACTIVE);
-	if (ret < 0) {
-		return 0;
-	}
 
 	k_timer_init(&OsTickTimer, os_ticks, NULL);
 	k_timer_start(&OsTickTimer, K_MSEC(OS_TICK_MS), K_MSEC(OS_TICK_MS));

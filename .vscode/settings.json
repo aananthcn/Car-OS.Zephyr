@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"*.JLinkScript": "c",
+		"gpio.h": "c"
+	}
+}

@@ -88,32 +88,6 @@ target_include_directories(app PUBLIC
   ${CAR_OS_INCLUDE_DIR}/car_os
   ${CAR_OS_SYSGEN_S_PATH}
   ${CAR_OS_ASR_SRVC_PATH}/Os/include
+  ${CAR_OS_ASR_SRVC_PATH}/EcuM/api
+  ${CAR_OS_ASR_MCAL_PATH}/Dio/api
 )
-###############################################################################
-## Old implementation
-# TODO: as per the chat with zephyrproject support channel in Discord, I got the following link:
-# https://github.com/zephyrproject-rtos/zephyr/tree/main/samples/application_development/external_lib
-# And the following lines of code and writing Makefile by hand for the Car-OS approach is completely wrong!!
-
-# add_dependencies(app Car_OS)
-# target_link_libraries(app PRIVATE libCar_OS)
-# include(${CMAKE_CURRENT_SOURCE_DIR}/car-os/path_defs.cmake)
-# target_include_directories(app PUBLIC
-#   ${CAR_OS_BOARDSOC_PATH}
-#   ${CMAKE_CURRENT_SOURCE_DIR}/car-os/submodules/SL/Os/include
-#   ${CMAKE_CURRENT_SOURCE_DIR}/car-os/include/autosar
-#   ${CMAKE_CURRENT_SOURCE_DIR}/car-os/include/car-os
-#   ${CMAKE_CURRENT_SOURCE_DIR}/car-os/tools/os_builder/src
-# )
-
-# # Custom target for Car-OS.Zephyr
-# add_custom_target(
-# 	Car_OS
-# 	COMMAND make 
-# 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/car-os/
-# 	BYPRODUCTS libCar_OS.la
-# )
-# add_library(libCar_OS STATIC IMPORTED)
-# add_dependencies(libCar_OS Car_OS)
-# target_link_libraries(libCar_OS INTERFACE debug libCar_OS)
-# set_target_properties(libCar_OS PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/car-os/libCar_OS.la)
