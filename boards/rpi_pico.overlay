@@ -7,12 +7,13 @@
 
 / {
 	chosen {
-		zephyr,console = &usb_cdc;
+		zephyr,console = &cdc_acm_uart0;
 	};
 };
 
 &zephyr_udc0 {
-	usb_cdc: usb_cdc_0 {
-		compatible = "zephyr,cdc-acm-uart";
+	cdc_acm_uart0: cdc_acm_uart0 {
+	    compatible = "zephyr,cdc-acm-uart";
+	    label = "CDC_ACM_0";
 	};
 };

@@ -69,6 +69,10 @@ For further reading: https://blog.golioth.io/how-to-build-your-zephyr-app-in-a-s
 * 2 x Grove 4-pin => [check this link](https://www.fabtolab.com/grove-universal-cable?search=grove%204%20pin)
 * ENC28J60 Ethernet LAN controller => [check this link](https://robocraze.com/products/enc28j60-ethernet-lan-module)
 
+
+## Segger Debug Notes
+* Select RP2040_M0_0 as target device.
+* If you get "Memory read failure" while watching global variables, then set `Project -> Options -> Debugger -> Restrict Memory Access` ==> `No`. 
 <br><br>
 
 
