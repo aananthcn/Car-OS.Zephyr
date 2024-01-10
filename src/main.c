@@ -50,7 +50,7 @@ int main(void)
 
         /* setup logging */
         LOG_INIT();
-	LOG_DBG("\n\nWelcome to CAR-OS (Zephyr)!");
+	LOG_DBG("\n\nWelcome to Car-OS.Zephyr!");
 
 	k_timer_init(&OsTickTimer, os_ticks, NULL);
 	k_timer_start(&OsTickTimer, K_MSEC(OS_TICK_MS), K_MSEC(OS_TICK_MS)); // every 1 ms

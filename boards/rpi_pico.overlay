@@ -7,13 +7,25 @@
 
 / {
 	chosen {
-		zephyr,console = &uart0;
+		zephyr,console = &uart1;
 	};
 };
 
-&uart0 {
+&uart1 {
 	current-speed = <115200>;
 	status = "okay";
-	pinctrl-0 = <&uart0_default>;
+	pinctrl-0 = <&uart1_car_os>;
 	pinctrl-names = "default";
+};
+
+&pinctrl {
+	uart1_car_os: uart1_car_os {
+		group1 {
+			pinmux = <UART1_TX_P4>;
+		};
+		group2 {
+			pinmux = <UART1_RX_P5>;
+			input-enable;
+		};
+	};
 };
