@@ -1,6 +1,6 @@
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
-#include <zephyr/usb/usb_device.h>
+#include <zephyr/logging/log_ctrl.h>
 
 #include <stdio.h>
 
@@ -48,10 +48,9 @@ int main(void)
 {
 	EcuM_Init(); // TODO: Try to call Call EcuM_Init() much earlier from assembly code.
 
-        if (usb_enable(NULL)) {
-            LOG_DBG("Cannot enable USB");
-        }
-	LOG_DBG("Welcome to CAR-OS (Zephyr)!");
+        /* setup logging */
+        LOG_INIT();
+	LOG_DBG("\n\nWelcome to CAR-OS (Zephyr)!");
 
 	k_timer_init(&OsTickTimer, os_ticks, NULL);
 	k_timer_start(&OsTickTimer, K_MSEC(OS_TICK_MS), K_MSEC(OS_TICK_MS)); // every 1 ms
@@ -61,7 +60,6 @@ int main(void)
 
 	/* The execution should never reach here */
 	LOG_DBG("ERROR: AUTOSAR OS exited! The execution will be trapped!");
-
 	while (1) {
 		k_msleep(5000);
 	}
