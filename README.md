@@ -29,8 +29,8 @@ This project is created this way for following reasons:
  * `source ~/zephyrproject/.venv/bin/activate`
  * `source ~/zephyrproject/zephyr/zephyr-env.sh`
  * `python python car-os/tools/autosar-gui.py`
-   * Import `Car.OS.arxml` file.
-   * Click the Micro-Controller block and configure the microcontroller (right now only RaspberryPi Pico is supported)
+   * Import **Car.OS.arxml** file using `File->Import ARXML File` menu.
+   * Click the Micro-Controller block and configure the microcontroller (_right now only RaspberryPi Pico is supported_)
    * Click the Zephyr RTOS block and configure the zephyrproject path
    * Select menu `Generate->Generate Source` to generate source files.
  * `west build -b rpi_pico .`
@@ -56,9 +56,9 @@ For further reading: https://blog.golioth.io/how-to-build-your-zephyr-app-in-a-s
  * `cd Car-OS.Zephyr/`
  * `bash`
  * `source e:/zephyrproject/zephyr/zephyr-env.sh`
-   * `python python car-os/tools/autosar-gui.py`
-   * Import `Car.OS.arxml` file.
-   * Click the Micro-Controller block and configure the microcontroller (right now only RaspberryPi Pico is supported)
+ * `python python car-os/tools/autosar-gui.py`
+   * Import **Car.OS.arxml** file using `File->Import ARXML File` menu.
+   * Click the Micro-Controller block and configure the microcontroller (_right now only RaspberryPi Pico is supported_)
    * Click the Zephyr RTOS block and configure the zephyrproject path
    * Select menu `Generate->Generate Source` to generate source files.
  * `west build -b rpi_pico .`
