@@ -25,9 +25,14 @@ This project is created this way for following reasons:
 ### Setup and Build
  * `cd <base-path>`
  * `git clone --recurse-submodules -j4 https://github.com/aananthcn/Car-OS.Zephyr`
- * `cd autosar_os-zephyr/`
+ * `cd Car-OS.Zephyr/`
  * `source ~/zephyrproject/.venv/bin/activate`
  * `source ~/zephyrproject/zephyr/zephyr-env.sh`
+ * `python python car-os/tools/autosar-gui.py`
+   * Import `Car.OS.arxml` file.
+   * Click the Micro-Controller block and configure the microcontroller (right now only RaspberryPi Pico is supported)
+   * Click the Zephyr RTOS block and configure the zephyrproject path
+   * Select menu `Generate->Generate Source` to generate source files.
  * `west build -b rpi_pico .`
 
 For further reading: https://blog.golioth.io/how-to-build-your-zephyr-app-in-a-standalone-folder/
@@ -48,9 +53,14 @@ For further reading: https://blog.golioth.io/how-to-build-your-zephyr-app-in-a-s
 ### Setup and Build
  * `cd <base-path>`
  * `git clone --recurse-submodules -j4 https://github.com/aananthcn/Car-OS.Zephyr`
- * `cd autosar_os-zephyr/`
+ * `cd Car-OS.Zephyr/`
  * `bash`
  * `source e:/zephyrproject/zephyr/zephyr-env.sh`
+   * `python python car-os/tools/autosar-gui.py`
+   * Import `Car.OS.arxml` file.
+   * Click the Micro-Controller block and configure the microcontroller (right now only RaspberryPi Pico is supported)
+   * Click the Zephyr RTOS block and configure the zephyrproject path
+   * Select menu `Generate->Generate Source` to generate source files.
  * `west build -b rpi_pico .`
 
 <br>
