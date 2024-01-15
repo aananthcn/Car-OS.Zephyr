@@ -19,13 +19,15 @@
 #define OS_TICK_MS	(1) /* ms per tick */
 #define LED_ONTIME_MS	(250)
 
+#define CAR_OS_COLOR	"\x1B[92m"
+#define DEFAULTCOLOR	"\x1B[0m"
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // Globals
 static struct k_timer OsTickTimer;
 
-LOG_MODULE_REGISTER(autosar_os, LOG_LEVEL_DBG);
+LOG_MODULE_REGISTER(Car_OS, LOG_LEVEL_DBG);
 
 
 
@@ -46,20 +48,26 @@ static void os_ticks(struct k_timer *timer)
 
 int main(void)
 {
+        /* Setup logging */
+        LOG_INIT();
+
+        /* Car-OS's startup banner */
+	LOG_RAW("%sStarting Aananth's Car-OS.Zephyr...%s\n", CAR_OS_COLOR, DEFAULTCOLOR);
+
+	/* AUTOSAR's first function to execute before running OS */
 	EcuM_Init(); // TODO: Try to call Call EcuM_Init() much earlier from assembly code.
 
-        /* setup logging */
-        LOG_INIT();
-	LOG_DBG("\n\nWelcome to Car-OS.Zephyr!");
-
+	/* Setup Car-OS Tick events */
 	k_timer_init(&OsTickTimer, os_ticks, NULL);
 	k_timer_start(&OsTickTimer, K_MSEC(OS_TICK_MS), K_MSEC(OS_TICK_MS)); // every 1 ms
 
-	/* Calling a non-returning function */
+	/* Start Car-OS, calling a non-returning function */
 	StartOS(OSDEFAULTAPPMODE);
 
 	/* The execution should never reach here */
-	LOG_DBG("ERROR: AUTOSAR OS exited! The execution will be trapped!");
+	LOG_ERR("ERROR: AUTOSAR OS exited! The execution will be trapped!");
+
+	/* Loop for ever till restart */
 	while (1) {
 		k_msleep(5000);
 	}

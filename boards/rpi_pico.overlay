@@ -14,17 +14,35 @@
 &uart1 {
 	current-speed = <115200>;
 	status = "okay";
-	pinctrl-0 = <&uart1_car_os>;
+	pinctrl-0 = <&uart1_pin_45>;
 	pinctrl-names = "default";
 };
 
+&spi0 {
+	clock-frequency = <DT_FREQ_K(100)>; /* TODO: Step up the freq to 1 to 10 MHz, ref page 88 of enc. datasheet */
+	status = "okay";
+	pinctrl-0 = <&spi0_pin_0123>;
+	pinctrl-names = "default";
+	compatible = "raspberrypi,pico-spi", "arm,pl022";
+};
+
 &pinctrl {
-	uart1_car_os: uart1_car_os {
+	uart1_pin_45: uart1_pin_45 {
 		group1 {
 			pinmux = <UART1_TX_P4>;
 		};
 		group2 {
 			pinmux = <UART1_RX_P5>;
+			input-enable;
+		};
+	};
+
+	spi0_pin_0123: spi0_pin_0123 {
+		group1 {
+			pinmux = <SPI0_CSN_P1>, <SPI0_SCK_P2>, <SPI0_TX_P3>;
+		};
+		group2 {
+			pinmux = <SPI0_RX_P0>;
 			input-enable;
 		};
 	};
