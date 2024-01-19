@@ -43,6 +43,7 @@ For further reading: https://blog.golioth.io/how-to-build-your-zephyr-app-in-a-s
 
 ### Pre-requisites
  * Setup MSYS2 as described in https://www.msys2.org/
+   * Once the installation is successful, please don't forget to add the binary paths to the environmental path variable of your windows computer.
  * Update pacman packages & database
    * `pacman -Syy`
    * `pacman -Syu`
@@ -55,7 +56,8 @@ For further reading: https://blog.golioth.io/how-to-build-your-zephyr-app-in-a-s
      * `west update`
      * `west zephyr-export`
      * `pip install -r <d:_or_e:_path>\zephyrproject\zephyr\scripts\requirements.txt`
-       * Note: you will find an error "`ERROR: No matching distribution found for windows-curses`". You can safely ingore it for now.
+       * Note: you will find an error "`ERROR: No matching distribution found for windows-curses`". You can safely ingore it for now, but install the packages/modules listed below this note.
+     * `pip install pyelftools`
    * Setup SDK
      * `wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.4/zephyr-sdk-0.16.4_windows-x86_64.7z`
      * `7z x zephyr-sdk-0.16.4_windows-x86_64.7z`
@@ -67,10 +69,11 @@ For further reading: https://blog.golioth.io/how-to-build-your-zephyr-app-in-a-s
  * `cd Car-OS.Zephyr/`
  * `bash`
  * `source e:/zephyrproject/zephyr/zephyr-env.sh`
- * `python python car-os/tools/autosar-gui.py`
+ * `python car-os/tools/autosar-gui.py`
    * Import **Car-OS.arxml** file using `File->Import ARXML File` menu.
    * Click the Micro-Controller block and configure the microcontroller (_right now only RaspberryPi Pico is supported_)
-   * Click the Zephyr RTOS block and configure the zephyrproject path
+   * Click the Zephyr RTOS block and configure the zephyrproject path.
+   * Click on Application block and click update to pull all applications.
    * Select menu `Generate->Generate Source` to generate source files.
  * `west build -b rpi_pico .`
 
