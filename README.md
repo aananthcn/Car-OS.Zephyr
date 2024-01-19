@@ -43,11 +43,22 @@ For further reading: https://blog.golioth.io/how-to-build-your-zephyr-app-in-a-s
 
 ### Pre-requisites
  * Setup MSYS2 as described in https://www.msys2.org/
+ * Update pacman packages & database
+   * `pacman -Syy`
+   * `pacman -Syu`
  * Install packages as described below
-   * `pacman -S make mingw-w64-x86_64-cmake mingw-w64-x86_64-python3-devel mingw-w64-x86_64-gcc mingw-w64-x86_64-python3 mingw-w64-x86_64-python3-ruamel-yaml mingw-w64-x86_64-ninja mingw-w64-x86_64-gperf mingw-w64-x86_64-wget mingw-w64-x86_64-7zip`
+   * `pacman -S make mingw-w64-x86_64-cmake mingw-w64-x86_64-gcc mingw-w64-x86_64-python3 python3-pip mingw-w64-x86_64-python-ruamel-yaml mingw-w64-x86_64-ninja mingw-w64-x86_64-gperf mingw-w64-x86_64-wget mingw-w64-x86_64-7zip`
  * Setup zephyr project and SDK as given in https://docs.zephyrproject.org/latest/develop/getting_started/index.html
-   * Preferably create a new partion in windows (E:) and install it there.
-   * Note: you will find an error "`ERROR: No matching distribution found for windows-curses`". You can safely ingore it for now.
+   * Preferably create a new partion in windows (E: or D:) and install it there. Here are some example steps that you can follow, however please follow the link above for detailed steps:
+     * `west init zephyrproject`
+     * `cd zephyrproject`
+     * `west update`
+     * `west zephyr-export`
+     * `pip install -r <d:_or_e:_path>\zephyrproject\zephyr\scripts\requirements.txt`
+       * Note: you will find an error "`ERROR: No matching distribution found for windows-curses`". You can safely ingore it for now.
+   * Setup SDK
+     * `wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.4/zephyr-sdk-0.16.4_windows-x86_64.7z`
+     * `7z x zephyr-sdk-0.16.4_windows-x86_64.7z`
 
 
 ### Setup and Build
