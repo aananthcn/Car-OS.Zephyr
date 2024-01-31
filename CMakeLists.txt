@@ -3,7 +3,7 @@ find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(Car_OS_Zephyr)
 
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
 # The default app target from Zephyr
 target_sources(app PRIVATE src/main.c)
@@ -91,3 +91,5 @@ target_include_directories(app PUBLIC
   ${CAR_OS_ASR_SRVC_PATH}/EcuM/api
   ${CAR_OS_ASR_MCAL_PATH}/Dio/api
 )
+
+message(STATUS "Added Car-OS project's makefile to the CMake list.")
