@@ -28,7 +28,7 @@ This project is created this way for following reasons:
  * `cd Car-OS.Zephyr/`
  * `source ~/zephyrproject/.venv/bin/activate`
  * `source ~/zephyrproject/zephyr/zephyr-env.sh`
- * `python python car-os/tools/autosar-gui.py`
+ * `python car-os/tools/autosar-gui.py`
    * Import **Car-OS.arxml** file using `File->Import ARXML File` menu.
    * Click the Micro-Controller block and configure the microcontroller (_right now only RaspberryPi Pico is supported_)
    * Click the Zephyr RTOS block and configure the zephyrproject path
