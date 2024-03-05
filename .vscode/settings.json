@@ -5,6 +5,8 @@
 		"charconv": "c",
 		"cstdint": "cpp",
 		"tcpip_extensions.h": "c",
-		"string.h": "c"
+		"string.h": "c",
+		"log.h": "c",
+		"tcpip.h": "c"
 	}
 }
