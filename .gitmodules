@@ -1,3 +1,4 @@
 [submodule "car-os"]
 	path = car-os
 	url = https://github.com/aananthcn/Car-OS.git
+	branch = main
