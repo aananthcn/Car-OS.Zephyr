@@ -69,6 +69,7 @@ ExternalProject_Add(
   CFLAGS=${external_project_cflags}
   INSTALL_COMMAND ""             # This particular build system has no install command
   BUILD_BYPRODUCTS ${CAR_OS_BASE_DIR_PATH}/libCar_OS.a
+  DEPENDS zephyr_interface
 )
 
 
