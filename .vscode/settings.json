@@ -1,6 +1,12 @@
 {
 	"files.associations": {
 		"*.JLinkScript": "c",
-		"gpio.h": "c"
+		"gpio.h": "c",
+		"charconv": "c",
+		"cstdint": "cpp",
+		"tcpip_extensions.h": "c",
+		"string.h": "c",
+		"log.h": "c",
+		"tcpip.h": "c"
 	}
 }
